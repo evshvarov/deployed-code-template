@@ -9,15 +9,15 @@ Open IRIS terminal and install:
 
 USER>zpm "install deployed-oscript-template"
 Module will install two classes:
-dc.deployed.ObjectScript and dc.withsource.ObjectScript
+[dc.deployed.ObjectScript](https://github.com/evshvarov/deployed-code-template/blob/master/src/dc/deployed/ObjectScript.cls) and [dc.withsource.ObjectScript](https://github.com/evshvarov/deployed-code-template/blob/master/src/dc/withsource/ObjectScript.cls)
 
 To test them run:
 ```objectscript
-USER>Do ##class(dc.deployed.ObjectScript).Test()
+Do ##class(dc.deployed.ObjectScript).Test()
 ```
 and then
 ```objectscript
-USER>Do ##class(dc.withsource.ObjectScript).Test()
+Do ##class(dc.withsource.ObjectScript).Test()
 ```
 you can check the source code with the following commands:
 first deploed mode:
@@ -34,7 +34,11 @@ But if you check the source code you'll see it only for dc.withsource.ObjectScri
 
 ## How It Works?
 
-To make class package or a particlular class being published in registry as deploeyed include Deploy="true" element in a resource. Example.
+To make class package or a particlular class being published in registry as deploeyed include Deploy="true" element in a resource. [See the module.xml as an example](https://github.com/evshvarov/deployed-code-template/blob/99bde0793ea865c2fb56f788461b44bf4d2d76a9/module.xml#L9).
+```xml
+<Resource Name="dc.deployed.PKG" Deploy="true"/>
+<Resource Name="dc.withsource.PKG"/>
+```
 So when you will publish the package it will be published in a deployed mode.
 
 ## what is the idea?
@@ -49,13 +53,6 @@ use load command to import source code into the development environment
 use publish command once module is ready for release to be published in a deployed mode.
 users install module without source code using install command.
 
-
-
-
-## What's in?
-
-The module contains two classes:
-dc.deployed.ObjectScript and dc.withsource.ObjectScript
 
 # Development environment
 
@@ -82,13 +79,15 @@ $ docker-compose build
 $ docker-compose up -d
 ```
 
+Click on InterSystems Menu in the bottombar and choose Refresh Connection to connect VS-Code to a running IRIS instance
+
 ## How to Test it
 
 Open IRIS terminal:
 
 ```objectscript
 $ docker-compose exec iris iris session iris
-USER>write ##class(dc.deployed.ObjectScript).Test()
+write ##class(dc.deployed.ObjectScript).Test()
 ```
 ## How to start coding
 This repository is ready to code in VSCode with ObjectScript plugin.

@@ -101,3 +101,10 @@ USER root
 RUN apt update && apt-get -y install git
 
 USER ${ISC_PACKAGE_MGRUSER}
+
+
+## print class code
+
+k text do ##class(%Compiler.UDL.TextServices).GetTextAsString($namespace, "dc.deployed.ObjectScript", .text) zw text
+
+k text do ##class(%Compiler.UDL.TextServices).GetTextAsString($namespace, "dc.withsource.ObjectScript", .text) zw text

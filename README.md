@@ -1,11 +1,68 @@
-## intersystems-objectscript-template
-This is a template for InterSystems ObjectScript Github repository.
-The template goes also with a few files which let you immediately compile your ObjectScript files in InterSystems IRIS Community Edition in a docker container
+## deployed-oscript-template
+This is an example and template to create InterSystems package manager modules in deployed mode - without source code.
+
+Learn more on deployed mode here.
+
+## Try Deployed Package
+
+Open IRIS terminal and install:
+
+USER>zpm "install deployed-oscript-template"
+Module will install two classes:
+dc.deployed.ObjectScript and dc.withsource.ObjectScript
+
+To test them run:
+```objectscript
+USER>Do ##class(dc.deployed.ObjectScript).Test()
+```
+and then
+```objectscript
+USER>Do ##class(dc.withsource.ObjectScript).Test()
+```
+you can check the source code with the following commands:
+first deploed mode:
+```objectscript
+k text do ##class(%Compiler.UDL.TextServices).GetTextAsString($namespace, "dc.deployed.ObjectScript", .text) w text
+```
+and with source code:
+```objectscript
+k text do ##class(%Compiler.UDL.TextServices).GetTextAsString($namespace, "dc.withsource.ObjectScript", .text) w text
+```
+
+
+But if you check the source code you'll see it only for dc.withsource.ObjectScript, but dc.deployed.ObjectScript will contain only the signatures of class and methods.
+
+## How It Works?
+
+To make class package or a particlular class being published in registry as deploeyed include Deploy="true" element in a resource. Example.
+So when you will publish the package it will be published in a deployed mode.
+
+## what is the idea?
+
+The idea is to be able working with a source code in your repository and publish packages for commercial usage without source code in a deployed mode.
+This template illustrates the approach.
+
+When you use load command e.g. to load package into IRIS it loads it with source code. So publish and install command work with a deployed mode.
+
+The workflow looks as following:
+use load command to import source code into the development environment
+use publish command once module is ready for release to be published in a deployed mode.
+users install module without source code using install command.
+
+
+
+
+## What's in?
+
+The module contains two classes:
+dc.deployed.ObjectScript and dc.withsource.ObjectScript
+
+# Development environment
 
 ## Prerequisites
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker desktop](https://www.docker.com/products/docker-desktop) installed.
 
-## Installation 
+## How to develop with template
 
 Clone/git pull the repo into any local directory
 
@@ -29,9 +86,9 @@ $ docker-compose up -d
 
 Open IRIS terminal:
 
-```
+```objectscript
 $ docker-compose exec iris iris session iris
-USER>write ##class(dc.sample.ObjectScript).Test()
+USER>write ##class(dc.deployed.ObjectScript).Test()
 ```
 ## How to start coding
 This repository is ready to code in VSCode with ObjectScript plugin.
@@ -39,26 +96,3 @@ Install [VSCode](https://code.visualstudio.com/), [Docker](https://marketplace.v
 Open /src/cls/PackageSample/ObjectScript.cls class and try to make changes - it will be compiled in running IRIS docker container.
 ![docker_compose](https://user-images.githubusercontent.com/2781759/76656929-0f2e5700-6547-11ea-9cc9-486a5641c51d.gif)
 
-Feel free to delete PackageSample folder and place your ObjectScript classes in a form
-/src/Package/Classname.cls
-[Read more about folder setup for InterSystems ObjectScript](https://community.intersystems.com/post/simplified-objectscript-source-folder-structure-package-manager)
-
-The script in Installer.cls will import everything you place under /src into IRIS.
-
-
-## What's inside the repository
-
-### Dockerfile
-
-The simplest Dockerfile which starts IRIS and imports code from /src folder into it.
-Use the related docker-compose.yml to easily setup additional parametes like port number and where you map keys and host folders.
-
-
-### .vscode/settings.json
-
-Settings file to let you immediately code in VSCode with [VSCode ObjectScript plugin](https://marketplace.visualstudio.com/items?itemName=daimor.vscode-objectscript))
-
-### .vscode/launch.json
-Config file if you want to debug with VSCode ObjectScript
-
-[Read about all the files in this article](https://community.intersystems.com/post/dockerfile-and-friends-or-how-run-and-collaborate-objectscript-projects-intersystems-iris)

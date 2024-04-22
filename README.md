@@ -30,11 +30,11 @@ k text do ##class(%Compiler.UDL.TextServices).GetTextAsString($namespace, "dc.wi
 ```
 
 
-But if you check the source code you'll see it only for dc.withsource.ObjectScript, but dc.deployed.ObjectScript will contain only the signatures of class and methods.
+But if you check the source code you'll see it only for dc.withsource.ObjectScript, whereas dc.deployed.ObjectScript will contain only the signatures of class and methods.
 
 ## How It Works?
 
-To make class package or a particlular class being published in registry as deploeyed include Deploy="true" element in a resource. [See the module.xml as an example](https://github.com/evshvarov/deployed-code-template/blob/99bde0793ea865c2fb56f788461b44bf4d2d76a9/module.xml#L9).
+To make class package or a particlular class being published in registry as deployed include Deploy="true" element in a resource. [See the module.xml as an example](https://github.com/evshvarov/deployed-code-template/blob/99bde0793ea865c2fb56f788461b44bf4d2d76a9/module.xml#L9).
 ```xml
 <Resource Name="dc.deployed.PKG" Deploy="true"/>
 <Resource Name="dc.withsource.PKG"/>
@@ -49,10 +49,9 @@ This template illustrates the approach.
 When you use load command e.g. to load package into IRIS it loads it with source code. So publish and install command work with a deployed mode.
 
 The workflow looks as following:
-use load command to import source code into the development environment
-use publish command once module is ready for release to be published in a deployed mode.
-users install module without source code using install command.
-
+1. use load command to import source code into the development environment
+2. use publish command once module is ready for release to be published in a deployed mode.
+3. users install module without source code using install command.
 
 # Development environment
 

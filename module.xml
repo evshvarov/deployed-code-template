@@ -3,7 +3,7 @@
   <Document name="deployed-oscript-template.ZPM">
     <Module>
       <Name>deployed-oscript-template</Name>
-      <Version>1.0.0</Version>
+      <Version>1.0.1</Version>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
       <Resource Name="dc.deployed.PKG" Deploy="true"/>
